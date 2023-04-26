@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1014992286129",
+    "project_id": "rachim-7d1d0",
+    "storage_bucket": "rachim-7d1d0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1014992286129:android:d46d7a514aac22528a0d90",
+        "android_client_info": {
+          "package_name": "com.rachim"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1014992286129-61mmavagu91cbdl86rqt7f1nppe2oquq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rachim",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "1014992286129-595h7msv7k08rkdiq9qvg1khn1uc288l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpk2MNTMp6JFStXo4ZmfbvaGJ93EwO_dA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1014992286129-595h7msv7k08rkdiq9qvg1khn1uc288l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
