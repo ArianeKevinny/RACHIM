@@ -3,10 +3,9 @@
 import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import {AuthRoutes} from './auth.routes'
 
-import Home from 'screens/home';
-import LoginScreen from 'screens/loginScreen';
-import UserRegister from components/userRegister ;
+import {Home} from '../screens/home';
 
 export function Routes() {
   const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);

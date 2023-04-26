@@ -1,14 +1,12 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import {View} from 'react-native';
-import LoginComponent from '../components/telaLogin';
+import {LoginComponent} from '../components/LoginComponent';
 
-function LoginScreen(): JSX.Element {
+export function LoginScreen() {
   return (
     <View>
       <LoginComponent />
     </View>
   );
 }
-
-export default LoginScreen;

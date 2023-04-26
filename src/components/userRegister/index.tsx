@@ -1,14 +1,18 @@
 /* eslint-disable prettier/prettier */
 import React, {useState} from 'react';
 import {Alert, Text, TextInput, TouchableOpacity, View} from 'react-native';
-import styles from './style';
 import auth from '@react-native-firebase/auth';
+import {useNavigation} from '@react-navigation/native';
+import styles from './style';
 
-function userRegister(): JSX.Element {
+export function UserRegister(): JSX.Element {
+
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  const navigation = useNavigation()
 
   function register() {
     setIsLoading(true);
@@ -73,5 +77,3 @@ function userRegister(): JSX.Element {
     </View>
   );
 }
-
-export default userRegister;

@@ -1,14 +1,21 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import {View} from 'react-native';
-import RegisterComponent from '../components/userRegister';
+import {Text, TouchableOpacity, View} from 'react-native';
+import {UserRegister} from '../components/UserRegister';
+import {useNavigation} from '@react-navigation/native';
 
-function LoginScreen(): JSX.Element {
+export function RegisterScreen() {
+  const navigation = useNavigation();
+  
   return (
     <View>
-      <RegisterComponent />
+      <UserRegister />
+      
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}>
+        <Text>Já possuo conta!</Text>
+      </TouchableOpacity>
+
     </View>
   );
 }
-
-export default LoginScreen;

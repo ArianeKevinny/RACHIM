@@ -7,18 +7,29 @@ import {
   StyleSheet,
   StatusBar,
 } from 'react-native';
+import auth from '@react-native-firebase/auth';
 
-function Home({navigation}: any): JSX.Element {
+
+
+export function Home(): JSX.Element {
+  function handleSignOut(){
+    auth()
+    .signOut()
+    .then(() => console.log('User signed out!'));
+  }
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-        <Text style={styles.text}>Ir para tela de login</Text>
+      <TouchableOpacity onPress={() => console.log("AAAAAA")}>
+        <Text style={styles.text}>LOGADO</Text>
+      </TouchableOpacity>
+      
+      <TouchableOpacity onPress={() => handleSignOut()}>
+        <Text style={styles.text}>Sair</Text>
       </TouchableOpacity>
     </View>
   );
 }
-
-export default Home;
 
 const styles = StyleSheet.create({
   container: {

@@ -4,14 +4,15 @@ import {Alert, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import styles from './style';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-function LoginComponent(): JSX.Element {
+export function LoginComponent(): JSX.Element {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
   function handleSignIn() {
     setIsLoading(true);
@@ -68,9 +69,7 @@ function LoginComponent(): JSX.Element {
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => {
-          navigation.navigate('userRegister');
-        }}>
+        onPress={() => navigation.navigate('register')}>
         <Text style={styles.textButton}>Criar Conta</Text>
       </TouchableOpacity>
 
@@ -86,4 +85,3 @@ function LoginComponent(): JSX.Element {
   );
 }
 
-export default LoginComponent;
