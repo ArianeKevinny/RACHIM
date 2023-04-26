@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import { Routes } from './src/routes';
+import {Routes} from './src/routes';
 
 function App(): JSX.Element {
   return (
