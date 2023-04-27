@@ -1,27 +1,24 @@
 /* eslint-disable prettier/prettier */
 import React, {useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
+import auth from '@react-native-firebase/auth';
+
 import {Alert, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import styles from './style';
-import auth from '@react-native-firebase/auth';
-import {useNavigation} from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+//import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export function LoginComponent(): JSX.Element {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
 
   const navigation = useNavigation();
 
   function handleSignIn() {
-    setIsLoading(true);
-
     auth()
     .signInWithEmailAndPassword(email, password)
     .then(() => {
       Alert.alert("Logado com sucesso");
-      setIsLoading(false);
     })
     .catch((error) => console.log(error));
   }
@@ -58,14 +55,15 @@ export function LoginComponent(): JSX.Element {
         onChangeText={setPassword}
       />
 
-      isLoading = {isLoading}
+  
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          handleSignIn();
+          handleSignIn()
         }}>
-        <Text style={styles.textButton}>Login</Text>
+        <Text style={styles.textButton}>Entrar</Text>
       </TouchableOpacity>
+
 
       <TouchableOpacity
         style={styles.button}
@@ -84,4 +82,3 @@ export function LoginComponent(): JSX.Element {
     </View>
   );
 }
-

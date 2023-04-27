@@ -2,21 +2,15 @@
 import React, {useState} from 'react';
 import {Alert, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import auth from '@react-native-firebase/auth';
-import {useNavigation} from '@react-navigation/native';
 import styles from './style';
 
-export function UserRegister(): JSX.Element {
+export function UserRegister() {
 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
 
-  const navigation = useNavigation()
-
-  function register() {
-    setIsLoading(true);
-
+  function handleNewAccount() {
     auth()
     .createUserWithEmailAndPassword(email, password)
     .then(() => Alert.alert("Conta", "Cadastrado com sucesso!"))
@@ -27,11 +21,11 @@ export function UserRegister(): JSX.Element {
       if (error.code === 'auth/invalid-email'){
         console.log("E-mail inválido!");
       }
-      console.log(error);
+      console.log(error)
     })
-    .finally(() => setIsLoading(false));
     //Registro
-  }
+    }
+
 
   return (
     <View style={styles.loginScreenContext}>
@@ -66,14 +60,14 @@ export function UserRegister(): JSX.Element {
         onChangeText={setPassword}
       />
 
-      isLoading = {isLoading}
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          register();
+          handleNewAccount()
         }}>
-        <Text style={styles.textButton}>Registre-se</Text>
+        <Text style={styles.textButton}>Cadastrar</Text>
       </TouchableOpacity>
+
     </View>
   );
 }
