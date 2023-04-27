@@ -9,7 +9,11 @@ import {
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 
+const user = auth().currentUser;
 
+user.providerData.forEach((userInfo) => {
+  console.log('User info for provider: ', userInfo);
+});
 
 export function Home(): JSX.Element {
   function handleSignOut(){
@@ -20,6 +24,8 @@ export function Home(): JSX.Element {
 
   return (
     <View style={styles.container}>
+      <Text>Welcome {user.displayName} </Text>
+
       <TouchableOpacity onPress={() => console.log("AAAAAA")}>
         <Text style={styles.text}>LOGADO</Text>
       </TouchableOpacity>

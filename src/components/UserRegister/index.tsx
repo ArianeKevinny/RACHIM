@@ -4,6 +4,7 @@ import {Alert, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 import styles from './style';
+
 export function UserRegister(): JSX.Element {
 
   const [username, setUsername] = useState('');

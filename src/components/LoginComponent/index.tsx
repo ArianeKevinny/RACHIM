@@ -12,7 +12,7 @@ export function LoginComponent(): JSX.Element {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const navigation = useNavigation<NativeStackNavigationProp<any>>();
+  const navigation = useNavigation();
 
   function handleSignIn() {
     setIsLoading(true);
@@ -69,7 +69,7 @@ export function LoginComponent(): JSX.Element {
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('register')}>
+        onPress={() => navigation.navigate('register' as never)}>
         <Text style={styles.textButton}>Criar Conta</Text>
       </TouchableOpacity>
 
