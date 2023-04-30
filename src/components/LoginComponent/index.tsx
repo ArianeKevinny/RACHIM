@@ -36,6 +36,10 @@ function LoginComponent(): JSX.Element {
     .catch(error => console.log(error));
   }
 
+  function googleLogin() {
+    Alert.alert("N implementado")
+  }
+
   return (
     <View style={styles.loginScreenContext}>
 
@@ -71,7 +75,7 @@ function LoginComponent(): JSX.Element {
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          handleSignIn()
+          googleLogin()
         }}>
         <Text style={styles.textButton}>Login com Google</Text>
       </TouchableOpacity>
