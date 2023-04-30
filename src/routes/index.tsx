@@ -1,23 +1,15 @@
-/* eslint-disable prettier/prettier */
+import React from "react";
+import {LoginScreen} from '../screens/loginScreen';
+import {RegisterScreen} from '../screens/registerScreen';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import React, {useState, useEffect} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
-import {AuthRoutes} from './auth.routes'
+const Stack = createNativeStackNavigator();
 
-import {Home} from '../screens/home';
-
-export function Routes() {
-  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
-
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(setUser);
-    return subscriber;
-  }, []);
-
+export default function AuthRoutes() {
   return (
-    <NavigationContainer>
-      {user ? <Home /> : <AuthRoutes />}
-    </NavigationContainer>
+    <Stack.Navigator initialRouteName="Login">
+    <Stack.Screen name="Login" component={LoginScreen} />
+    <Stack.Screen name="Register" component={RegisterScreen} />
+    </Stack.Navigator>
   );
 }
