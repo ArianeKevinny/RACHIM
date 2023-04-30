@@ -1,18 +1,16 @@
 /* eslint-disable prettier/prettier */
 import React, {useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
-import auth from '@react-native-firebase/auth';
-
 import {Alert, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import styles from './style';
+import auth from '@react-native-firebase/auth';
+import {useNavigation} from '@react-navigation/native';
 //import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-export function LoginComponent(): JSX.Element {
-
+function LoginComponent(): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const navigation = useNavigation();
+  const navigation = useNavigation() 
 
   function handleSignIn() {
     auth()
@@ -20,7 +18,15 @@ export function LoginComponent(): JSX.Element {
     .then(() => {
       Alert.alert("Logado com sucesso");
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      if(error.code === 'auth/user-not-found'){
+        Alert.alert("Usuário não encontrado!")
+      }
+      if(error.code === 'auth/wrong-password'){
+        Alert.alert("Senha Inválida!")
+      }
+      console.log(error);
+    })
   }
 
   function handleForgotPassword() {
@@ -30,7 +36,6 @@ export function LoginComponent(): JSX.Element {
     .catch(error => console.log(error));
   }
 
-
   return (
     <View style={styles.loginScreenContext}>
 
@@ -38,7 +43,7 @@ export function LoginComponent(): JSX.Element {
       <TextInput
         style={styles.textInput}
         selectTextOnFocus={true}
-        placeholder="Informe um email válido"
+        placeholder="Informe seu email"
         autoComplete="email"
         defaultValue={email}
         onChangeText={setEmail}
@@ -55,7 +60,6 @@ export function LoginComponent(): JSX.Element {
         onChangeText={setPassword}
       />
 
-  
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
@@ -64,10 +68,19 @@ export function LoginComponent(): JSX.Element {
         <Text style={styles.textButton}>Entrar</Text>
       </TouchableOpacity>
 
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          handleSignIn()
+        }}>
+        <Text style={styles.textButton}>Login com Google</Text>
+      </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('register' as never)}>
+        onPress={() => {
+          navigation.navigate('Register')
+        }}>
         <Text style={styles.textButton}>Criar Conta</Text>
       </TouchableOpacity>
 
@@ -82,3 +95,5 @@ export function LoginComponent(): JSX.Element {
     </View>
   );
 }
+
+export default LoginComponent;
