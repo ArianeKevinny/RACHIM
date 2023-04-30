@@ -1,12 +1,12 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import {View} from 'react-native';
-import LoginComponent from '../components/LoginComponent';
+import TimeRegister from '../components/TimeRegister';
 
-export function LoginScreen() {
+export function RegisterTimeScreen() {
   return (
     <View>
-      <LoginComponent />
+      <TimeRegister />
     </View>
   );
 }
