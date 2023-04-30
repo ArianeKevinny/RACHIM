@@ -34,6 +34,20 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
   },
+  buttonSimple: {
+    backgroundColor: 'rgba(52, 52, 52, 0)',
+    height: 20,
+    width: '70%',
+    borderRadius: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 10,
+  },
+  textButtonSimple: {
+    fontWeight: 'bold',
+    color: 'black',
+    fontSize: 14,
+  },
 });
 
 export default styles;
