@@ -1,102 +1,178 @@
 /* eslint-disable prettier/prettier */
-import React, {useState} from 'react';
-import {Alert, Text, TextInput, TouchableOpacity, View} from 'react-native';
-import styles from './style';
-import auth from '@react-native-firebase/auth';
-import {useNavigation} from '@react-navigation/native';
+import React, { useState } from "react";
+import {
+  Alert,
+  Text,
+  TouchableOpacity,
+  View,
+  ScrollView,
+  Image,
+} from "react-native";
+import {TextInput, Button, Switch} from "react-native-paper";
+import styles from "./style";
+import auth from "@react-native-firebase/auth";
+import { useNavigation } from "@react-navigation/native";
 //import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 function LoginComponent(): JSX.Element {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const navigation = useNavigation() 
+  //Hooks usados no icone do olho para "mostrar senha"
+  const [showPassword, setShowPassword] = useState(false);
+  const [iconName, setIconName] = useState("eye-off-outline");
+
+  //Hook para o switch manter logado
+  const [manterLogado, setManterLogado] = React.useState(false);
+
+  const navigation = useNavigation();
 
   function handleSignIn() {
     auth()
-    .signInWithEmailAndPassword(email, password)
-    .then(() => {
-      Alert.alert("Logado com sucesso");
-    })
-    .catch((error) => {
-      if(error.code === 'auth/user-not-found'){
-        Alert.alert("Usuário não encontrado!")
-      }
-      if(error.code === 'auth/wrong-password'){
-        Alert.alert("Senha Inválida!")
-      }
-      console.log(error);
-    })
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        Alert.alert("Logado com sucesso");
+      })
+      .catch((error) => {
+        if (error.code === "auth/user-not-found") {
+          Alert.alert("Usuário não encontrado!");
+        }
+        if (error.code === "auth/wrong-password") {
+          Alert.alert("Senha Inválida!");
+        }
+        console.log(error);
+      });
   }
 
   function handleForgotPassword() {
     auth()
-    .sendPasswordResetEmail(email)
-    .then(() => Alert.alert("Redefinir senha", "Enviamos um e-mail para você"))
-    .catch(error => console.log(error));
+      .sendPasswordResetEmail(email)
+      .then(() =>
+        Alert.alert("Redefinir senha", "Enviamos um e-mail para você")
+      )
+      .catch((error) => console.log(error));
   }
 
   function googleLogin() {
-    Alert.alert("N implementado")
+    Alert.alert("N implementado");
   }
 
-  return (
-    <View style={styles.loginScreenContext}>
+  //Função para definir icone do olho para "mostrar senha"
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+    setIconName("eye" + (!showPassword ? "-off" : "") + "-outline");
+  };
 
-      <Text style={styles.loginScreenText}>Email:</Text>
+  return (
+    <ScrollView contentContainerStyle={styles.containerScroll}>
+      <Image
+        source={require("../../images/app-logo.png")}
+        style={styles.logo}
+      />
+
       <TextInput
+        activeOutlineColor="#23A618"
         style={styles.textInput}
         selectTextOnFocus={true}
         placeholder="Informe seu email"
         autoComplete="email"
         defaultValue={email}
         onChangeText={setEmail}
+        mode="outlined"
+        label="Email"
+        left={<TextInput.Icon icon={"email-outline"} />}
       />
 
-      <Text style={styles.loginScreenText}>Senha:</Text>
       <TextInput
+        activeOutlineColor="#23A618"
         style={styles.textInput}
         placeholder="Informe sua senha"
-        secureTextEntry={true}
-        selectTextOnFocus={true}
         autoComplete="password"
         defaultValue={password}
         onChangeText={setPassword}
+        mode="outlined"
+        left={<TextInput.Icon icon={"lock-outline"} />}
+        label="Senha"
+        secureTextEntry={!showPassword}
+        right={
+          <TextInput.Icon
+            icon={iconName}
+            onPress={() => {
+              handleShowPassword();
+            }}
+          />
+        }
       />
+      <View style={styles.forgotPasswordContext}>
+        <TouchableOpacity
+          onPress={() => {
+            handleForgotPassword();
+          }}
+        >
+          <Text style={styles.textLink}>Esqueceu sua senha?</Text>
+        </TouchableOpacity>
+      </View>
 
-      <TouchableOpacity
-        style={styles.button}
+      <View style={styles.switchContext}>
+        <Switch
+          value={manterLogado}
+          onValueChange={() => {
+            setManterLogado(!manterLogado);
+          }}
+          color="green"
+        />
+        <Text style={{ color: manterLogado ? "green" : "black" , marginLeft: 5}}>
+          Lembrar de mim
+        </Text>
+      </View>
+
+      <Button
+        buttonColor='#23A618'
+        textColor='white'
+        icon="send"
+        mode="elevated"
+        style={styles.loginButton}
         onPress={() => {
-          handleSignIn()
-        }}>
-        <Text style={styles.textButton}>Entrar</Text>
-      </TouchableOpacity>
+          handleSignIn();
+        }}
+      >
+        Entrar
+      </Button>
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => {
-          googleLogin()
-        }}>
-        <Text style={styles.textButton}>Login com Google</Text>
-      </TouchableOpacity>
+      <View style={styles.orLineContext}>
+        <View style={styles.line} />
+        <View style={{ marginHorizontal: 10 }}>
+          <Text>OU</Text>
+        </View>
+        <View style={styles.line} />
+      </View>
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => {
-          navigation.navigate('Register')
-        }}>
-        <Text style={styles.textButton}>Criar Conta</Text>
-      </TouchableOpacity>
+      <View style={styles.googleLoginContext}>
+        <TouchableOpacity
+          style={styles.googleLoginButton}
+          onPress={() => {
+            googleLogin();
+          }}
+        >
+          <Image
+            source={require("../../images/google-icon.png")}
+            style={{ width: 25, height: 25, marginLeft: 5 }}
+          />
+          <Text style={styles.googleLoginText}>Entre com o Google</Text>
+        </TouchableOpacity>
+      </View>
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => {
-          handleForgotPassword();
-        }}>
-        <Text style={styles.textButton}>Esqueci senha</Text>
-      </TouchableOpacity>
-
-    </View>
+      <View style={styles.createAccountContext}>
+        <Text>Ainda não tem uma conta?</Text>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Register');
+          }}
+        >
+          <Text style={styles.textLink}> Cadastre-se agora</Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 }
 
