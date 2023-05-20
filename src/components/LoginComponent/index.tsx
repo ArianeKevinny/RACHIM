@@ -107,15 +107,7 @@ function LoginComponent(): JSX.Element {
             />
           }
         />
-        <View style={styles.forgotPasswordContext}>
-          <TouchableOpacity
-            onPress={() => {
-              handleForgotPassword();
-            }}
-          >
-            <Text style={styles.textLink}>Esqueceu sua senha?</Text>
-          </TouchableOpacity>
-        </View>
+        
 
         <View style={styles.switchContext}>
           <Switch
@@ -142,6 +134,16 @@ function LoginComponent(): JSX.Element {
         >
           Entrar
         </Button>
+
+        <View style={styles.forgotPasswordContext}>
+          <TouchableOpacity
+            onPress={() => {
+              handleForgotPassword();
+            }}
+          >
+            <Text style={styles.textLink}>Esqueceu sua senha?</Text>
+          </TouchableOpacity>
+        </View>
 
         <View style={styles.orLineContext}>
           <View style={styles.line} />
