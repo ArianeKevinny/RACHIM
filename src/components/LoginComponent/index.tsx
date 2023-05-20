@@ -23,13 +23,13 @@ function LoginComponent(): JSX.Element {
   const [iconName, setIconName] = useState("eye-off-outline");
 
   //Hook para o switch manter logado
-  const [manterLogado, setManterLogado] = React.useState(false);
+  const [lembrarDeMim, setLembrarDeMim] = React.useState(true);
 
   const navigation = useNavigation();
 
   function handleSignIn() {
     auth()
-      .signInWithEmailAndPassword(email, password)
+      .signInWithEmailAndPassword(email.trim(), password)
       .then(() => {
         Alert.alert("Logado com sucesso");
       })
@@ -37,8 +37,11 @@ function LoginComponent(): JSX.Element {
         if (error.code === "auth/user-not-found") {
           Alert.alert("Usuário não encontrado!");
         }
-        if (error.code === "auth/wrong-password") {
+        else if (error.code === "auth/wrong-password") {
           Alert.alert("Senha Inválida!");
+        }
+        else {
+          Alert.alert("Ops! Algo de errado aconteceu. Por favor, tente novamente.");
         }
         console.log(error);
       });
@@ -46,7 +49,7 @@ function LoginComponent(): JSX.Element {
 
   function handleForgotPassword() {
     auth()
-      .sendPasswordResetEmail(email)
+      .sendPasswordResetEmail(email.trim())
       .then(() =>
         Alert.alert("Redefinir senha", "Enviamos um e-mail para você")
       )
@@ -65,112 +68,114 @@ function LoginComponent(): JSX.Element {
 
   return (
     <ScrollView contentContainerStyle={styles.containerScroll}>
-      <Image
-        source={require("../../images/app-logo.png")}
-        style={styles.logo}
-      />
-
-      <TextInput
-        activeOutlineColor="#23A618"
-        style={styles.textInput}
-        selectTextOnFocus={true}
-        placeholder="Informe seu email"
-        autoComplete="email"
-        defaultValue={email}
-        onChangeText={setEmail}
-        mode="outlined"
-        label="Email"
-        left={<TextInput.Icon icon={"email-outline"} />}
-      />
-
-      <TextInput
-        activeOutlineColor="#23A618"
-        style={styles.textInput}
-        placeholder="Informe sua senha"
-        autoComplete="password"
-        defaultValue={password}
-        onChangeText={setPassword}
-        mode="outlined"
-        left={<TextInput.Icon icon={"lock-outline"} />}
-        label="Senha"
-        secureTextEntry={!showPassword}
-        right={
-          <TextInput.Icon
-            icon={iconName}
-            onPress={() => {
-              handleShowPassword();
-            }}
-          />
-        }
-      />
-      <View style={styles.forgotPasswordContext}>
-        <TouchableOpacity
-          onPress={() => {
-            handleForgotPassword();
-          }}
-        >
-          <Text style={styles.textLink}>Esqueceu sua senha?</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.switchContext}>
-        <Switch
-          value={manterLogado}
-          onValueChange={() => {
-            setManterLogado(!manterLogado);
-          }}
-          color="green"
+      <View style={styles.container}>
+        <Image
+          source={require("../../images/app-logo.png")}
+          style={styles.logo}
         />
-        <Text style={{ color: manterLogado ? "green" : "black" , marginLeft: 5}}>
-          Lembrar de mim
-        </Text>
-      </View>
 
-      <Button
-        buttonColor='#23A618'
-        textColor='white'
-        icon="send"
-        mode="elevated"
-        style={styles.loginButton}
-        onPress={() => {
-          handleSignIn();
-        }}
-      >
-        Entrar
-      </Button>
+        <TextInput
+          activeOutlineColor="#23A618"
+          style={styles.textInput}
+          selectTextOnFocus={true}
+          placeholder="Informe seu email"
+          autoComplete="email"
+          defaultValue={email}
+          onChangeText={(input) => {setEmail(input)}}
+          mode="outlined"
+          label="Email"
+          left={<TextInput.Icon icon={"email-outline"} />}
+        />
 
-      <View style={styles.orLineContext}>
-        <View style={styles.line} />
-        <View style={{ marginHorizontal: 10 }}>
-          <Text>OU</Text>
+        <TextInput
+          activeOutlineColor="#23A618"
+          style={styles.textInput}
+          placeholder="Informe sua senha"
+          autoComplete="password"
+          defaultValue={password}
+          onChangeText={setPassword}
+          mode="outlined"
+          left={<TextInput.Icon icon={"lock-outline"} />}
+          label="Senha"
+          secureTextEntry={!showPassword}
+          right={
+            <TextInput.Icon
+              icon={iconName}
+              onPress={() => {
+                handleShowPassword();
+              }}
+            />
+          }
+        />
+        <View style={styles.forgotPasswordContext}>
+          <TouchableOpacity
+            onPress={() => {
+              handleForgotPassword();
+            }}
+          >
+            <Text style={styles.textLink}>Esqueceu sua senha?</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.line} />
-      </View>
 
-      <View style={styles.googleLoginContext}>
-        <TouchableOpacity
-          style={styles.googleLoginButton}
-          onPress={() => {
-            googleLogin();
-          }}
-        >
-          <Image
-            source={require("../../images/google-icon.png")}
-            style={{ width: 25, height: 25, marginLeft: 5 }}
+        <View style={styles.switchContext}>
+          <Switch
+            value={lembrarDeMim}
+            onValueChange={() => {
+              setLembrarDeMim(!lembrarDeMim);
+            }}
+            color="green"
           />
-          <Text style={styles.googleLoginText}>Entre com o Google</Text>
-        </TouchableOpacity>
-      </View>
+          <Text style={{ color: lembrarDeMim ? "green" : "black" , marginLeft: 5}}>
+            Lembrar de mim
+          </Text>
+        </View>
 
-      <View style={styles.createAccountContext}>
-        <Text>Ainda não tem uma conta?</Text>
-        <TouchableOpacity
+        <Button
+          style={styles.loginButton}
+          buttonColor='#23A618'
+          textColor='white'
+          icon="send"
+          mode="elevated"
           onPress={() => {
-            navigation.navigate('Register');
+            handleSignIn();
           }}
         >
-          <Text style={styles.textLink}> Cadastre-se agora</Text>
-        </TouchableOpacity>
+          Entrar
+        </Button>
+
+        <View style={styles.orLineContext}>
+          <View style={styles.line} />
+          <View style={{ marginHorizontal: 10 }}>
+            <Text>OU</Text>
+          </View>
+          <View style={styles.line} />
+        </View>
+
+        <View style={styles.googleLoginContext}>
+          <TouchableOpacity
+            style={styles.googleLoginButton}
+            onPress={() => {
+              googleLogin();
+            }}
+          >
+            <Image
+              source={require("../../images/google-icon.png")}
+              style={{ width: 25, height: 25, marginLeft: 5 }}
+            />
+            <Text style={styles.googleLoginText}>Entre com o Google</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.createAccountContext}>
+          <Text>Ainda não tem uma conta?</Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Register');
+            }}
+          >
+            <Text style={styles.textLink}> Cadastre-se agora</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </ScrollView>
   );

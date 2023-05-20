@@ -3,9 +3,14 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   containerScroll: {
     flexGrow: 1,
+    width: "100%",
+    minHeight: '100%',
+  },
+  container: {
+    flexGrow: 1,
+    width: '100%',
     alignItems: "center",
     justifyContent: "center",
-    width: "100%",
     paddingTop: 10,
   },
   loginScreenContext: {
@@ -43,6 +48,7 @@ const styles = StyleSheet.create({
   loginButton: {
     width: '70%',
     margin: 10,
+    borderRadius: 10,
   },
   orLineContext: {
     width: "90%",
@@ -90,6 +96,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 15,
+    marginBottom: 20,
   },
 });
 
