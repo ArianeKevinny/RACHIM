@@ -1,52 +1,74 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  loginScreenContext: {
-    height: '100%',
+  containerScroll: {
+    flexGrow: 1,
     width: '100%',
+    minHeight: '100%',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
-  textInput: {
-    width: '70%',
-    height: 40,
-    margin: 10,
-    marginBottom: 20,
-    borderWidth: 1,
-    paddingHorizontal: 15,
-    borderRadius: 30,
+  container: {
+    width: '100%',
+    flexGrow: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
-  loginScreenText: {
-    fontWeight: 'bold',
-    fontSize: 18,
+  simpleHeader: {
+    width: '100%',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-end',
+    height: 50,
+    paddingHorizontal: 10,
+  },
+  welcomeContext: {
+    width: '80%',
+    alignItems: 'center',
+    paddingTop: 10,
+  },
+  logo: {
+    width: 100,
+    height: 100,
+  },
+  screenTitle: {
     color: 'black',
+    fontWeight: '700',
   },
-  button: {
-    backgroundColor: 'green',
-    height: 40,
-    width: '70%',
-    borderRadius: 30,
+  form: {
+    flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 10,
+    width: '80%',
+  },
+  textInput: {
+    width: '100%',
+    backgroundColor: 'white',
+    margin: 5,
+    elevation: 2,
+  },
+  passwordRequirementsContext: {
+    width: '100%',
+    alignItems: 'flex-start',
+    marginBottom: 4,
+  },
+  button: {
+    width: '100%',
+    borderRadius: 10,
+    margin: 10,
   },
   textButton: {
-    fontWeight: 'bold',
+    fontWeight: "600",
     color: 'white',
     fontSize: 18,
   },
-  buttonSimple: {
-    backgroundColor: 'rgba(52, 52, 52, 0)',
-    height: 20,
-    width: '70%',
-    borderRadius: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: 10,
+  textLinkContext: {
+    paddingHorizontal: 10,
+    paddingVertical: 5,
   },
-  textButtonSimple: {
+  textLink: {
     fontWeight: 'bold',
     color: 'black',
-    fontSize: 14,
+    fontSize: 16,
   },
 });
 

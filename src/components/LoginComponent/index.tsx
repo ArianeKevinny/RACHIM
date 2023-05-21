@@ -80,7 +80,7 @@ function LoginComponent(): JSX.Element {
           selectTextOnFocus={true}
           placeholder="Informe seu email"
           autoComplete="email"
-          defaultValue={email}
+          value={email}
           onChangeText={(input) => {setEmail(input)}}
           mode="outlined"
           label="Email"
@@ -92,7 +92,7 @@ function LoginComponent(): JSX.Element {
           style={styles.textInput}
           placeholder="Informe sua senha"
           autoComplete="password"
-          defaultValue={password}
+          value={password}
           onChangeText={setPassword}
           mode="outlined"
           left={<TextInput.Icon icon={"lock-outline"} />}
