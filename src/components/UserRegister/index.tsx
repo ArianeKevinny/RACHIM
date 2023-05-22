@@ -1,71 +1,153 @@
 /* eslint-disable prettier/prettier */
-import React, {useState} from 'react';
-import {Alert, Button, Text, TextInput, TouchableOpacity, View} from 'react-native';
-import auth from '@react-native-firebase/auth';
-import styles from './style';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState } from "react";
+import { Alert, ScrollView, Text, TouchableOpacity, View, Image} from "react-native";
+import { TextInput, Button, IconButton, Title } from "react-native-paper";
+import auth from "@react-native-firebase/auth";
+import styles from "./style";
+import { useNavigation } from "@react-navigation/native";
 
 function UserRegister(): JSX.Element {
-  const navigation = useNavigation() 
+  const navigation = useNavigation();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [username, setUsername] = useState("");
+
+  //Hooks usados no icone do olho para "mostrar senha"
+  const [showPassword, setShowPassword] = useState(false);
+  const [iconName, setIconName] = useState("eye-off-outline");
 
   function handleNewAccount() {
-    auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then(() => Alert.alert("Conta", "Cadastrado com sucesso!"))
-    .catch((error) => {
-      if (error.code === 'auth/email-already-in-use'){
-        Alert.alert("Esse e-mail já está em uso!");
-      }
-      if (error.code === 'auth/invalid-email'){
-        Alert.alert("E-mail inválido!");
-      }
-    })
-    //Registro
+    if (password !== confirmPassword) {
+      Alert.alert("Senha Inválida", "As senhas não coincidem.");
+      return;
     }
+    auth()
+      .createUserWithEmailAndPassword(email.trim(), password)
+      .then(() => Alert.alert("Conta", "Cadastrado com sucesso!"))
+      .catch((error) => {
+        if (error.code === "auth/email-already-in-use") {
+          Alert.alert("Esse e-mail já está em uso!");
+        }
+        if (error.code === "auth/invalid-email") {
+          Alert.alert("E-mail inválido!");
+        }
+      });
+    //Registro
+  }
 
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+    setIconName("eye" + (!showPassword ? "-off" : "") + "-outline");
+  };
 
   return (
-    <View style={styles.loginScreenContext}>
-
-      <Text style={styles.loginScreenText}>Email:</Text>
-      <TextInput
-        style={styles.textInput}
-        selectTextOnFocus={true}
-        placeholder="Informe um email válido"
-        autoComplete="email"
-        defaultValue={email}
-        onChangeText={setEmail}
-      />
-
-      <Text style={styles.loginScreenText}>Senha:</Text>
-      <TextInput
-        style={styles.textInput}
-        placeholder="Informe uma senha de no minimo 6 digítos"
-        secureTextEntry={true}
-        selectTextOnFocus={true}
-        autoComplete="password"
-        defaultValue={password}
-        onChangeText={setPassword}
-      />
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => {
-          handleNewAccount()
-        }}>
-        <Text style={styles.textButton}>Cadastrar</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.buttonSimple}
-        onPress={() => navigation.navigate('Login')}>
-        <Text style={styles.textButtonSimple}>Já possuo conta</Text>
-      </TouchableOpacity>
+    <ScrollView contentContainerStyle={styles.containerScroll}>
+   
+      <View style={styles.container}>
       
-    </View>
+        <View style={styles.simpleHeader}>
+        <IconButton
+    icon="arrow-left"
+    size={25}
+    onPress={() => navigation.goBack()}
+  />
+        </View>
+
+        
+        <View style={styles.welcomeContext} >
+        <Image
+                  source={require("../../images/app-logo.png")}
+                  style={styles.logo}
+                />
+                <Title style={styles.screenTitle} >BEM-VINDO(A), PLAYER!</Title>
+        </View>
+        
+
+        <View style={styles.form}>
+
+        <TextInput 
+        label="Nome de Usuário"
+        selectionColor="white"
+          style={styles.textInput}
+          selectTextOnFocus={true}
+          activeUnderlineColor="#23A618"
+          value={username}
+          onChangeText={(input) => {
+            setUsername(input);
+          }}
+          left={<TextInput.Icon icon={'account-outline'}/>}
+        />
+
+        <TextInput
+        label="Email"
+          activeUnderlineColor="#23A618"
+          style={styles.textInput}
+          selectTextOnFocus={true}
+          autoComplete="email"
+          value={email}
+          onChangeText={(input) => {
+            setEmail(input);
+          }}
+          left={<TextInput.Icon icon={"email-outline"} />}
+        />
+
+        <TextInput
+          label="Senha"
+          activeUnderlineColor="#23A618"
+          style={styles.textInput}
+          value={password}
+          onChangeText={setPassword}
+          left={<TextInput.Icon icon={"lock-outline"} />}
+          secureTextEntry={!showPassword}
+          right={
+            <TextInput.Icon
+              icon={iconName}
+              onPress={() => {
+                handleShowPassword();
+              }}
+            />
+          }
+        />
+
+        <View style={styles.passwordRequirementsContext}>
+          <Text>Requisitos:</Text>
+          <Text style={{marginLeft: 15}}> - Minimo de 6 caracteres.</Text>
+        </View>
+
+        <TextInput
+          label="Confirme sua senha"
+          activeUnderlineColor="#23A618"
+          style={styles.textInput}
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+          left={<TextInput.Icon icon={"lock-outline"} />}
+          secureTextEntry={true}
+        />
+
+        <Button
+          mode="elevated"
+          style={styles.button}
+          buttonColor="#23A618"
+          onPress={() => {
+            handleNewAccount();
+          }}
+        >
+          <Text style={styles.textButton}>Cadastrar</Text>
+        </Button>
+
+        <TouchableOpacity
+          style={styles.textLinkContext}
+          onPress={() => navigation.navigate("Login")}
+        >
+          <Text style={styles.textLink}>Já possuo conta</Text>
+        </TouchableOpacity>
+        </View>
+        
+      </View>
+    </ScrollView>
   );
 }
 
