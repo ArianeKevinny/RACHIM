@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import 'react-native-gesture-handler';
 import AuthRoutes from './src/routes'
 import MyTabs from './src/routes/myTabs'
-import Drawer from './src/routes/drawer';
+import MyDrawer from './src/routes/drawer';
 
 
 function App(): JSX.Element {
@@ -37,7 +37,6 @@ function App(): JSX.Element {
   return (
     <NavigationContainer>
       <MyTabs />
-      <Drawer />
     </NavigationContainer>
   );
 }

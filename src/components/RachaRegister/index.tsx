@@ -1,52 +1,98 @@
 /* eslint-disable prettier/prettier */
+/* https://github.com/henninghall/react-native-date-picker */
+
 import React, {useState} from 'react';
 import {Alert, Text, TextInput, TouchableOpacity, View} from 'react-native';
-import styles from './style';
+import { Button } from "react-native-paper";
+import DatePicker from 'react-native-date-picker';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth'
+
+
 
 function RachaRegister(): JSX.Element {
-    const [nomeTime, setNomeTime] = useState('')
-    const [email, setEmail] = useState('')
+    const user = auth().currentUser;
+    const email = user?.email
+    const [date, setDate] = useState(new Date())
+    const [local, setLocal] = useState('')
+    const [jogadores, setJogadores] = useState('')
+    const [loading, setLoading] = useState(false)
 
-    async function brasao() {
-        Alert.alert("Ainda não é possivel")
+    const onChanged = (text) => {
+        let newText = '';
+        let numbers = '0123456789';
+    
+        for (var i=0; i < text.length; i++) {
+            if(numbers.indexOf(text[i]) > -1 ) {
+                newText = newText + text[i];
+            }
+            else {
+                Alert.alert("Insira apenas números");
+            }
+        }
+        setJogadores(newText);
     }
     
     function cadastrarTime() {
-        Alert.alert("Ainda não é possivel")
+        firestore()
+        .collection('Rachas')
+        .add({
+            emailAdm: {email},
+            datahora: {date},
+            local: {local},
+            jogadoresmax: {jogadores}
+        })
+        .then(() => {
+            Alert.alert('Racha adcionado!');
+        })
+        .catch((error) => {console.log(error)});
+        setLoading(false)
     }
 
     return (
-        <View style={styles.loginScreenContext}>
-            <Text style={styles.loginScreenText}>Nome:</Text>
-            <TextInput
-                style={styles.textInput}
-                selectTextOnFocus={true}
-                placeholder="Informe o nome do time"
-                defaultValue={nomeTime}
-                onChangeText={setNomeTime}
-            />
-    
-            <Text style={styles.loginScreenText}>Email responsavel:</Text>
-            <TextInput
-                style={styles.textInput}
-                selectTextOnFocus={true}
-                placeholder="Email do administrador"
-                autoComplete="email"
-                defaultValue={email}
-                onChangeText={setEmail}
-            />
-            
-            
-            <Text style={styles.loginScreenText}>Brasão do time:</Text>
-            <Text>IMPLEMENTAR</Text>
+        <View>
+            <Text>Registre seu racha!</Text>
 
-            <TouchableOpacity
-                style={styles.button}
+
+        <Text>Data e Hora do Racha:</Text>
+            <DatePicker
+                date={date}
+                onDateChange={setDate}
+                minimumDate = {new Date()}
+                locale="pt-BR"
+                textColor="green"
+            />
+        
+        <Text>Endereço do Racha:</Text>
+            <TextInput
+                selectTextOnFocus={true}
+                placeholder="Local do Racha"
+                autoComplete="street-address"
+                defaultValue={local}
+                onChangeText={setLocal}
+            />
+        
+        <Text>Máximo de pessoas permitidas:</Text>
+            <TextInput
+                keyboardType='numeric'
+                onChangeText={text => onChanged(text)}
+                value={jogadores}
+                placeholder='Number'
+                maxLength={2}
+            />
+            
+
+            <Button
+                mode="elevated"
+                buttonColor="#23A618"
+                loading={loading}
                 onPress={() => {
-                    cadastrarTime()
-                }}>
-                <Text style={styles.textButton}>Cadastrar time</Text>
-            </TouchableOpacity>
+                    setLoading(true)
+                    cadastrarTime();
+                }}
+                >
+                <Text>Cadastrar Racha</Text>
+                </Button>
 
         </View>
     );

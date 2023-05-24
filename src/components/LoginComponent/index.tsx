@@ -17,6 +17,7 @@ import { useNavigation } from "@react-navigation/native";
 function LoginComponent(): JSX.Element {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false)
 
   //Hooks usados no icone do olho para "mostrar senha"
   const [showPassword, setShowPassword] = useState(false);
@@ -45,6 +46,7 @@ function LoginComponent(): JSX.Element {
         }
         console.log(error);
       });
+    setLoading(false)
   }
 
   function handleForgotPassword() {
@@ -102,6 +104,7 @@ function LoginComponent(): JSX.Element {
             <TextInput.Icon
               icon={iconName}
               onPress={() => {
+                setLoading(false);
                 handleShowPassword();
               }}
             />
@@ -128,6 +131,7 @@ function LoginComponent(): JSX.Element {
           textColor='white'
           icon="send"
           mode="elevated"
+          loading = {loading}
           onPress={() => {
             handleSignIn();
           }}

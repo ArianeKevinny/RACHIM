@@ -12,6 +12,7 @@ function UserRegister(): JSX.Element {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false)
 
   const [username, setUsername] = useState("");
 
@@ -35,6 +36,7 @@ function UserRegister(): JSX.Element {
           Alert.alert("E-mail inválido!");
         }
       });
+    setLoading(false)
     //Registro
   }
 
@@ -50,10 +52,10 @@ function UserRegister(): JSX.Element {
       
         <View style={styles.simpleHeader}>
         <IconButton
-    icon="arrow-left"
-    size={25}
-    onPress={() => navigation.goBack()}
-  />
+          icon="arrow-left"
+          size={25}
+          onPress={() => navigation.goBack()}
+        />
         </View>
 
         
@@ -131,7 +133,9 @@ function UserRegister(): JSX.Element {
           mode="elevated"
           style={styles.button}
           buttonColor="#23A618"
+          loading={loading}
           onPress={() => {
+            setLoading(true)
             handleNewAccount();
           }}
         >

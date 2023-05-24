@@ -1,12 +1,12 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import {View} from 'react-native';
-import TimeRegister from '../components/TimeRegister';
+import RachaRegister from '../components/RachaRegister';
 
-export function RegisterTimeScreen() {
+export function RegisterRachaScreen() {
   return (
     <View>
-      <TimeRegister />
+      <RachaRegister />
     </View>
   );
 }
