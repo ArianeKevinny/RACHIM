@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   },
   forgotPasswordContext: {
     width: "70%",
-    alignItems: "center",
+    alignItems: 'flex-end',
     margin: 5,
   },
   textLink: {

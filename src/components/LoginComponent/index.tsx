@@ -21,10 +21,7 @@ function LoginComponent(): JSX.Element {
 
   //Hooks usados no icone do olho para "mostrar senha"
   const [showPassword, setShowPassword] = useState(false);
-  const [iconName, setIconName] = useState("eye-off-outline");
-
-  //Hook para o switch manter logado
-  const [lembrarDeMim, setLembrarDeMim] = React.useState(true);
+  const [iconName, setIconName] = useState("eye-outline");
 
   const navigation = useNavigation();
 
@@ -111,18 +108,14 @@ function LoginComponent(): JSX.Element {
           }
         />
         
-
-        <View style={styles.switchContext}>
-          <Switch
-            value={lembrarDeMim}
-            onValueChange={() => {
-              setLembrarDeMim(!lembrarDeMim);
+        <View style={styles.forgotPasswordContext}>
+          <TouchableOpacity
+            onPress={() => {
+              handleForgotPassword();
             }}
-            color="green"
-          />
-          <Text style={{ color: lembrarDeMim ? "green" : "black" , marginLeft: 5}}>
-            Lembrar de mim
-          </Text>
+          >
+            <Text style={styles.textLink}>Esqueceu sua senha?</Text>
+          </TouchableOpacity>
         </View>
 
         <Button
@@ -139,15 +132,7 @@ function LoginComponent(): JSX.Element {
           Entrar
         </Button>
 
-        <View style={styles.forgotPasswordContext}>
-          <TouchableOpacity
-            onPress={() => {
-              handleForgotPassword();
-            }}
-          >
-            <Text style={styles.textLink}>Esqueceu sua senha?</Text>
-          </TouchableOpacity>
-        </View>
+        
 
         <View style={styles.orLineContext}>
           <View style={styles.line} />
@@ -165,7 +150,7 @@ function LoginComponent(): JSX.Element {
             }}
           >
             <Image
-              source={require("../../images/google-icon.png")}
+              source={require("../../images/icons/google-icon.png")}
               style={{ width: 25, height: 25, marginLeft: 5 }}
             />
             <Text style={styles.googleLoginText}>Entre com o Google</Text>

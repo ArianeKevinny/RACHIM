@@ -18,7 +18,7 @@ function UserRegister(): JSX.Element {
 
   //Hooks usados no icone do olho para "mostrar senha"
   const [showPassword, setShowPassword] = useState(false);
-  const [iconName, setIconName] = useState("eye-off-outline");
+  const [iconName, setIconName] = useState("eye-outline");
 
   function handleNewAccount() {
     if (password !== confirmPassword) {

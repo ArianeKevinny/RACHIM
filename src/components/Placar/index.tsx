@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, Image} from 'react-native';
 import styles from './style';
-import versusIcon from '../../images/versusIcon.png';
+import versusIcon from '../../images/icons/versusIcon.png';
 import Timer from '../timer';
 
 type placarProps = {

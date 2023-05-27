@@ -194,8 +194,8 @@ export function PartidaGen(): JSX.Element {
             <TouchableOpacity
               onPress={() => pauseTimer()}
               disabled={isTimerPaused}
-              style={styles.button}>
-              <Text style={styles.buttonText}>Pausar</Text>
+              style={[styles.button, isTimerPaused ? {elevation: 0} : null]}>
+              <Text style={styles.buttonText}>{isTimerPaused ? '': 'Pausar'}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -265,6 +265,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 5,
     margin: 10,
+    elevation: 3,
   },
   buttonText: {
     color: 'white',
