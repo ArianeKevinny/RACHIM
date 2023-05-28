@@ -5,7 +5,6 @@ import auth from "@react-native-firebase/auth";
 import firestore from "@react-native-firebase/firestore";
 import HomeComponent from "../components/HomeComponent";
 
-const user = auth().currentUser;
 
 export function Home(): JSX.Element {
 

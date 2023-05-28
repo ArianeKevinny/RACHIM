@@ -8,7 +8,7 @@ import {
   ScrollView,
   Image,
 } from "react-native";
-import {TextInput, Button, Switch} from "react-native-paper";
+import { TextInput, Button, Switch } from "react-native-paper";
 import styles from "./style";
 import auth from "@react-native-firebase/auth";
 import { useNavigation } from "@react-navigation/native";
@@ -17,7 +17,7 @@ import { useNavigation } from "@react-navigation/native";
 function LoginComponent(): JSX.Element {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   //Hooks usados no icone do olho para "mostrar senha"
   const [showPassword, setShowPassword] = useState(false);
@@ -34,16 +34,16 @@ function LoginComponent(): JSX.Element {
       .catch((error) => {
         if (error.code === "auth/user-not-found") {
           Alert.alert("Usuário não encontrado!");
-        }
-        else if (error.code === "auth/wrong-password") {
+        } else if (error.code === "auth/wrong-password") {
           Alert.alert("Senha Inválida!");
-        }
-        else {
-          Alert.alert("Ops! Algo de errado aconteceu. Por favor, tente novamente.");
+        } else {
+          Alert.alert(
+            "Ops! Algo de errado aconteceu. Por favor, tente novamente."
+          );
         }
         console.log(error);
       });
-    setLoading(false)
+    setLoading(false);
   }
 
   function handleForgotPassword() {
@@ -72,6 +72,7 @@ function LoginComponent(): JSX.Element {
           source={require("../../images/app-logo.png")}
           style={styles.logo}
         />
+        <Text style={{ color: "black", fontWeight: "700", fontSize: 25, marginBottom: 25}}>RACHIM</Text>
 
         <TextInput
           activeOutlineColor="#23A618"
@@ -80,7 +81,9 @@ function LoginComponent(): JSX.Element {
           placeholder="Informe seu email"
           autoComplete="email"
           value={email}
-          onChangeText={(input) => {setEmail(input)}}
+          onChangeText={(input) => {
+            setEmail(input);
+          }}
           mode="outlined"
           label="Email"
           left={<TextInput.Icon icon={"email-outline"} />}
@@ -107,7 +110,7 @@ function LoginComponent(): JSX.Element {
             />
           }
         />
-        
+
         <View style={styles.forgotPasswordContext}>
           <TouchableOpacity
             onPress={() => {
@@ -120,19 +123,17 @@ function LoginComponent(): JSX.Element {
 
         <Button
           style={styles.loginButton}
-          buttonColor='#23A618'
-          textColor='white'
+          buttonColor="#23A618"
+          textColor="white"
           icon="send"
           mode="elevated"
-          loading = {loading}
+          loading={loading}
           onPress={() => {
             handleSignIn();
           }}
         >
           Entrar
         </Button>
-
-        
 
         <View style={styles.orLineContext}>
           <View style={styles.line} />
@@ -161,7 +162,7 @@ function LoginComponent(): JSX.Element {
           <Text>Ainda não tem uma conta?</Text>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('Register');
+              navigation.navigate("Register");
             }}
           >
             <Text style={styles.textLink}> Cadastre-se agora</Text>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./style";
 import { View, Text, Pressable, Image} from "react-native";
-import {Button, Divider, IconButton, List} from "react-native-paper";
+import {Button, Divider, IconButton} from "react-native-paper";
 
 type rachaInfo = {
     adm: String;

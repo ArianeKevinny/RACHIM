@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     minHeight: '100%',
     justifyContent: 'flex-start',
     alignItems: 'center',
+    paddingBottom: 20, 
   },
   container: {
     width: '100%',
@@ -25,6 +26,7 @@ const styles = StyleSheet.create({
     width: '80%',
     alignItems: 'center',
     paddingTop: 10,
+    marginVertical: 30,
   },
   logo: {
     width: 100,

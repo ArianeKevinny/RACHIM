@@ -1,6 +1,13 @@
 /* eslint-disable prettier/prettier */
 import React, { useState } from "react";
-import { Alert, ScrollView, Text, TouchableOpacity, View, Image} from "react-native";
+import {
+  Alert,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+  Image,
+} from "react-native";
 import { TextInput, Button, IconButton, Title } from "react-native-paper";
 import auth from "@react-native-firebase/auth";
 import styles from "./style";
@@ -12,7 +19,7 @@ function UserRegister(): JSX.Element {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const [username, setUsername] = useState("");
 
@@ -36,7 +43,7 @@ function UserRegister(): JSX.Element {
           Alert.alert("E-mail inválido!");
         }
       });
-    setLoading(false)
+    setLoading(false);
     //Registro
   }
 
@@ -46,112 +53,110 @@ function UserRegister(): JSX.Element {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.containerScroll}>
-   
-      <View style={styles.container}>
-      
-        <View style={styles.simpleHeader}>
-        <IconButton
-          icon="arrow-left"
-          size={25}
-          onPress={() => navigation.goBack()}
-        />
-        </View>
+    <View>
+      <IconButton
+        mode="contained"
+        containerColor="white"
+        iconColor="black"
+        icon="arrow-left"
+        size={25}
+        onPress={() => navigation.goBack()}
+        style={{ position: "absolute", top: 10, left: 10, zIndex: 99 }}
+      />
 
-        
-        <View style={styles.welcomeContext} >
-        <Image
-                  source={require("../../images/app-logo.png")}
-                  style={styles.logo}
-                />
-                <Title style={styles.screenTitle} >BEM-VINDO(A), PLAYER!</Title>
-        </View>
-        
-
-        <View style={styles.form}>
-
-        <TextInput 
-        label="Nome de Usuário"
-        selectionColor="white"
-          style={styles.textInput}
-          selectTextOnFocus={true}
-          activeUnderlineColor="#23A618"
-          value={username}
-          onChangeText={(input) => {
-            setUsername(input);
-          }}
-          left={<TextInput.Icon icon={'account-outline'}/>}
-        />
-
-        <TextInput
-        label="Email"
-          activeUnderlineColor="#23A618"
-          style={styles.textInput}
-          selectTextOnFocus={true}
-          autoComplete="email"
-          value={email}
-          onChangeText={(input) => {
-            setEmail(input);
-          }}
-          left={<TextInput.Icon icon={"email-outline"} />}
-        />
-
-        <TextInput
-          label="Senha"
-          activeUnderlineColor="#23A618"
-          style={styles.textInput}
-          value={password}
-          onChangeText={setPassword}
-          left={<TextInput.Icon icon={"lock-outline"} />}
-          secureTextEntry={!showPassword}
-          right={
-            <TextInput.Icon
-              icon={iconName}
-              onPress={() => {
-                handleShowPassword();
-              }}
+      <ScrollView contentContainerStyle={styles.containerScroll}>
+        <View style={styles.container}>
+          <View style={styles.welcomeContext}>
+            <Image
+              source={require("../../images/app-logo.png")}
+              style={styles.logo}
             />
-          }
-        />
+            <Title style={styles.screenTitle}>BEM-VINDO(A), PLAYER!</Title>
+          </View>
 
-        <View style={styles.passwordRequirementsContext}>
-          <Text>Requisitos:</Text>
-          <Text style={{marginLeft: 15}}> - Minimo de 6 caracteres.</Text>
+          <View style={styles.form}>
+            <TextInput
+              label="Nome de Usuário"
+              selectionColor="white"
+              style={styles.textInput}
+              selectTextOnFocus={true}
+              activeUnderlineColor="#23A618"
+              value={username}
+              onChangeText={(input) => {
+                setUsername(input);
+              }}
+              left={<TextInput.Icon icon={"account-outline"} />}
+            />
+
+            <TextInput
+              label="Email"
+              activeUnderlineColor="#23A618"
+              style={styles.textInput}
+              selectTextOnFocus={true}
+              autoComplete="email"
+              value={email}
+              onChangeText={(input) => {
+                setEmail(input);
+              }}
+              left={<TextInput.Icon icon={"email-outline"} />}
+            />
+
+            <TextInput
+              label="Senha"
+              activeUnderlineColor="#23A618"
+              style={styles.textInput}
+              value={password}
+              onChangeText={setPassword}
+              left={<TextInput.Icon icon={"lock-outline"} />}
+              secureTextEntry={!showPassword}
+              right={
+                <TextInput.Icon
+                  icon={iconName}
+                  onPress={() => {
+                    handleShowPassword();
+                  }}
+                />
+              }
+            />
+
+            <View style={styles.passwordRequirementsContext}>
+              <Text>Requisitos:</Text>
+              <Text style={{ marginLeft: 15 }}> - Minimo de 6 caracteres.</Text>
+            </View>
+
+            <TextInput
+              label="Confirme sua senha"
+              activeUnderlineColor="#23A618"
+              style={styles.textInput}
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+              left={<TextInput.Icon icon={"lock-outline"} />}
+              secureTextEntry={true}
+            />
+
+            <Button
+              mode="elevated"
+              style={styles.button}
+              buttonColor="#23A618"
+              loading={loading}
+              onPress={() => {
+                setLoading(true);
+                handleNewAccount();
+              }}
+            >
+              <Text style={styles.textButton}>Cadastrar</Text>
+            </Button>
+
+            <TouchableOpacity
+              style={styles.textLinkContext}
+              onPress={() => navigation.navigate("Login")}
+            >
+              <Text style={styles.textLink}>Já possuo conta</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-
-        <TextInput
-          label="Confirme sua senha"
-          activeUnderlineColor="#23A618"
-          style={styles.textInput}
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-          left={<TextInput.Icon icon={"lock-outline"} />}
-          secureTextEntry={true}
-        />
-
-        <Button
-          mode="elevated"
-          style={styles.button}
-          buttonColor="#23A618"
-          loading={loading}
-          onPress={() => {
-            setLoading(true)
-            handleNewAccount();
-          }}
-        >
-          <Text style={styles.textButton}>Cadastrar</Text>
-        </Button>
-
-        <TouchableOpacity
-          style={styles.textLinkContext}
-          onPress={() => navigation.navigate("Login")}
-        >
-          <Text style={styles.textLink}>Já possuo conta</Text>
-        </TouchableOpacity>
-        </View>
-        
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 }
 

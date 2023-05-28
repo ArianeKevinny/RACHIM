@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     margin: 20,
-    marginBottom: 30,
+    marginBottom: 5,
   },
   forgotPasswordContext: {
     width: "70%",
