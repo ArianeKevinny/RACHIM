@@ -1,5 +1,9 @@
 /* eslint-disable prettier/prettier */
 import React, { useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import {
   View,
   Text,
@@ -7,7 +11,7 @@ import {
   Button
 } from 'react-native';
 
-export function GerenciaRachaScreen(): JSX.Element {
+export function GerenciaRachaScreen({navigation}): JSX.Element {
   const [nome, setNome] = useState('');
   const [nomes, setNomes] = useState([]);
   const [Time1, setTime1] = useState([]);
@@ -34,8 +38,13 @@ export function GerenciaRachaScreen(): JSX.Element {
     setTime1(TimeA);
     setTime2(TimeB);
 
+    
   };
 
+  const FinalizarTime = () => {
+    navigation.navigate('Partida', {Time1: [...Time1], Time2: [...Time2]});
+  };
+  
   const randomizer = (array: never[]) => {
     const newArray = [...array];
     for (let i = newArray.length - 1; i > 0; i--) {
@@ -55,7 +64,7 @@ export function GerenciaRachaScreen(): JSX.Element {
       />
       <Button title="Adiconar jogador" onPress={AdicionarPessoa}/>
       <Button title="Sortear times" onPress={ConcluirTime}/>
-
+      <Button title="Finalizar" onPress={FinalizarTime}/>
       <Text>Jogadores:</Text> 
       {nomes.map((item, index) => (
         <Text key={index}>{item}</Text>
