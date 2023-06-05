@@ -17,8 +17,9 @@ export const timerContext = React.createContext({
   isPaused: true,
 });
 
-export function PartidaGen(): JSX.Element {
-
+export function PartidaGen({route}): JSX.Element {
+  const { Time1, Time2 } = route.params;
+  
   //A partir daqui, até...
   const [acrescimosMin, setAcrescimosMin] = useState(0);
   const [acrescimosSec, setAcrescimosSec] = useState(0);
@@ -135,7 +136,29 @@ export function PartidaGen(): JSX.Element {
   const opcoes = ['Escalação', 'Reservas'];
 
   return (
+
     <View style={styles.container}>
+      <Text>Time 1:</Text>
+      {Time1 && Time1.length > 0 ? (
+        <View>
+          {Time1.map((nome, index) => (
+            <Text key={index}>{nome}</Text>
+          ))}
+        </View>
+      ) : (
+        <Text>Nenhum jogador no Time 1</Text>
+      )}
+
+      <Text>Time 2:</Text>
+      {Time2 && Time2.length > 0 ? (
+        <View>
+          {Time2.map((nome, index) => (
+            <Text key={index}>{nome}</Text>
+          ))}
+        </View>
+      ) : (
+        <Text>Nenhum jogador no Time 2</Text>
+      )}
       <timerContext.Provider
         value={{
           acrescimos:
