@@ -1,62 +1,45 @@
-import React, {useState} from 'react';
-import {View} from 'react-native';
-import styles from './style';
-import PartidaJogador from '../PartidaJogador';
+import React, { useState } from "react";
+import { View, Text } from "react-native";
+import styles from "./style";
+import PartidaJogador from "../PartidaJogador";
 
 type partidaMenuProps = {
   option: String;
+  time1info: { timePrincipal: []; timeReserva: [] };
+  time2info: { timePrincipal: []; timeReserva: [] };
 };
 
 function PartidaMenuOptionView(props: partidaMenuProps): JSX.Element {
-  const time1 = { // SUBSTITUIR PELOS VERDADEIROS JOGADORES 
-    principal: [
-      'João',
-      'José',
-      'Maria',
-      'Joaquina',
-      'Enzo',
-      'Valentina',
-      'Dromedário',
-      'Camelo',
-      '123456789012345321321312',
-      'Urso Panda324324',
-    ],
-    reservas: ['brasil', 'mexico', 'equador'],
-  };
-  const time2 = { // SUBSTITUIR PELOS VERDADEIROS JOGADORES
-    principal: [
-      'Carlos',
-      'Isabel',
-      'Mônica',
-      'Cascão',
-      'Magali',
-      'Franjinha',
-      'Urso Polar',
-    ],
-    reservas: ['argentina', 'italia', 'honduras'],
-  };
+  const time1 = props.time1info;
+  const time2 = props.time2info;
 
   function renderPlayersList(lista: Array<any>): JSX.Element {
-    return lista.map((value, index) => {
-      return (
-        <View key={index} style={{height: 40, width: '100%'}}>
-          <PartidaJogador nome={value} />
-        </View>
-      );
-    });
+    return lista.length > 0 ? (
+      lista.map((value, index) => {
+        return (
+          <View key={index} style={{ height: 40, width: "100%" }}>
+            <PartidaJogador nome={value} />
+          </View>
+        );
+      })
+    ) : (
+      <View style={{ height: "100%", width: "100%", alignItems: 'center', justifyContent: 'center'}}>
+        <Text style={{textAlign: 'center'}}>Não há jogadores cadastrados</Text>
+      </View>
+    );
   }
 
   return (
     <View style={styles.container}>
       <View style={styles.listContext}>
         {renderPlayersList(
-          props.option == 'Escalação' ? time1.principal : time1.reservas,
+          props.option == "Escalação" ? time1.timePrincipal : time1.timeReserva
         )}
       </View>
       <View style={styles.divisor} />
       <View style={styles.listContext}>
         {renderPlayersList(
-          props.option == 'Escalação' ? time2.principal : time2.reservas,
+          props.option == "Escalação" ? time2.timePrincipal : time2.timeReserva
         )}
       </View>
     </View>

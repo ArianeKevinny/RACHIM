@@ -18,8 +18,17 @@ export const timerContext = React.createContext({
 });
 
 export function PartidaGen({route}): JSX.Element {
-  const { Time1, Time2 } = route.params;
-  
+  const { Time1, Time2, TeamSize} = route.params === undefined ? {Time1: [], Time2: [], TeamSize: 0} : route.params;
+
+  const time1Info = {
+    timePrincipal: Time1.slice(0, TeamSize),
+    timeReserva: Time1.slice(TeamSize)
+  }
+  const time2Info = {
+    timePrincipal: Time2.slice(0, TeamSize),
+    timeReserva: Time2.slice(TeamSize)
+  }
+
   //A partir daqui, até...
   const [acrescimosMin, setAcrescimosMin] = useState(0);
   const [acrescimosSec, setAcrescimosSec] = useState(0);
@@ -138,27 +147,6 @@ export function PartidaGen({route}): JSX.Element {
   return (
 
     <View style={styles.container}>
-      <Text>Time 1:</Text>
-      {Time1 && Time1.length > 0 ? (
-        <View>
-          {Time1.map((nome, index) => (
-            <Text key={index}>{nome}</Text>
-          ))}
-        </View>
-      ) : (
-        <Text>Nenhum jogador no Time 1</Text>
-      )}
-
-      <Text>Time 2:</Text>
-      {Time2 && Time2.length > 0 ? (
-        <View>
-          {Time2.map((nome, index) => (
-            <Text key={index}>{nome}</Text>
-          ))}
-        </View>
-      ) : (
-        <Text>Nenhum jogador no Time 2</Text>
-      )}
       <timerContext.Provider
         value={{
           acrescimos:
@@ -198,7 +186,7 @@ export function PartidaGen({route}): JSX.Element {
           <ScrollView
             contentContainerStyle={{flexGrow: 1}}
             style={{width: '100%'}}>
-            <PartidaMenuOptionView option={opcaoEscolhida} />
+            <PartidaMenuOptionView option={opcaoEscolhida} time1info={time1Info} time2info={time2Info} />
           </ScrollView>
         </View>
 

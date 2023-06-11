@@ -8,7 +8,8 @@ import {
   View,
   Text,
   TextInput,
-  Button
+  Button,
+  Alert
 } from 'react-native';
 
 export function GerenciaRachaScreen({navigation}): JSX.Element {
@@ -16,6 +17,7 @@ export function GerenciaRachaScreen({navigation}): JSX.Element {
   const [nomes, setNomes] = useState([]);
   const [Time1, setTime1] = useState([]);
   const [Time2, setTime2] = useState([]);
+  const [size, setSize] = useState('0');
   
   const handleChangeNome = (inputNome: React.SetStateAction<string>) => {
     setNome(inputNome);
@@ -29,6 +31,10 @@ export function GerenciaRachaScreen({navigation}): JSX.Element {
   };
 
   const ConcluirTime = () => {
+    if (nomes.length < Number.parseInt(size) * 2) {
+      Alert.alert('Jogadores insuficientes', "Você escolheu " + size + " jogadores por time, mas não cadastrou nomes suficientes.");
+      return;
+    }
     console.log('Nomes:', nomes);
     const TimeFull = randomizer(nomes);
     const JogadoresPorTime = Math.ceil(TimeFull.length / 2);
@@ -42,7 +48,7 @@ export function GerenciaRachaScreen({navigation}): JSX.Element {
   };
 
   const FinalizarTime = () => {
-    navigation.navigate('Partida', {Time1: [...Time1], Time2: [...Time2]});
+    navigation.navigate('Partida', {Time1: [...Time1], Time2: [...Time2], TeamSize: Number.parseInt(size)});
   };
   
   const randomizer = (array: never[]) => {
@@ -54,6 +60,11 @@ export function GerenciaRachaScreen({navigation}): JSX.Element {
     return newArray;
   };
 
+  const novoSorteio = () => {
+    setTime1([]);
+    setTime2([]);
+    setNomes([]);
+  }
 
   return (
     <View >
@@ -62,9 +73,18 @@ export function GerenciaRachaScreen({navigation}): JSX.Element {
       onChangeText={handleChangeNome}
       value={nome}
       />
+      
+      <TextInput 
+      placeholder='Informe o tamanho de cada time'
+      onChangeText={(value) => setSize(value)}
+      value={size}
+      keyboardType='numeric'
+      />
+
       <Button title="Adiconar jogador" onPress={AdicionarPessoa}/>
       <Button title="Sortear times" onPress={ConcluirTime}/>
       <Button title="Finalizar" onPress={FinalizarTime}/>
+      <Button title='Limpar Jogadores' onPress={novoSorteio} />
       <Text>Jogadores:</Text> 
       {nomes.map((item, index) => (
         <Text key={index}>{item}</Text>
