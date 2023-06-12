@@ -46,15 +46,7 @@ export function GerenciaRachaScreen({ navigation }): JSX.Element {
   }, [nomes])
 
   const sortearTimes = () => {
-    if (nomes.length < Number.parseInt(size) * 2) {
-      Alert.alert(
-        "Jogadores insuficientes",
-        "Você escolheu " +
-          size +
-          " jogadores por time, mas não cadastrou nomes suficientes."
-      );
-      return;
-    }
+    
     console.log("--> Nomes:", nomes);
     const TimeFull = randomizer(nomes);
     const JogadoresPorTime = Math.ceil(TimeFull.length / 2);
@@ -66,6 +58,16 @@ export function GerenciaRachaScreen({ navigation }): JSX.Element {
   };
 
   const FinalizarTime = () => {
+    if (nomes.length < Number.parseInt(size) * 2) {
+      Alert.alert(
+        "Jogadores insuficientes",
+        "Você escolheu " +
+          size +
+          " jogadores por time, mas não cadastrou nomes suficientes."
+      );
+      return;
+    }
+    
     navigation.navigate("Partida", {
       Time1: [...Time1],
       Time2: [...Time2],

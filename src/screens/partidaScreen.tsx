@@ -15,6 +15,7 @@ export const timerContext = React.createContext({
   tempo: '',
   isAcrescimos: false,
   isPaused: true,
+  setTimerLimitFunction: null,
 });
 
 export function PartidaGen({route}): JSX.Element {
@@ -28,12 +29,12 @@ export function PartidaGen({route}): JSX.Element {
     timePrincipal: Time2.slice(0, TeamSize),
     timeReserva: Time2.slice(TeamSize)
   }
-  
-  //A partir daqui, até...
+
+
   const [acrescimosMin, setAcrescimosMin] = useState(0);
   const [acrescimosSec, setAcrescimosSec] = useState(0);
 
-  const [timerLimit, setTimerLimit] = useState(1); // Receber tempo da partida em minutos
+  const [timerLimit, setTimerLimit] = useState(10); 
 
   const [timerMinutos, setTimerMinutos] = useState(0);
   const [timerSegundos, setTimerSegundos] = useState(0);
@@ -160,6 +161,7 @@ export function PartidaGen({route}): JSX.Element {
             (timerSegundos < 10 ? '0' + timerSegundos : timerSegundos),
           isAcrescimos: isAcrescimos,
           isPaused: isTimerPaused,
+          setTimerLimitFunction: setTimerLimit,
         }}>
         <View style={styles.algumNome}>
           <PartidaStats naoZerarPlacar={isFimDeJogo} />

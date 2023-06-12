@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     maxHeight: '95%',
     alignItems: 'center',
     justifyContent: 'flex-start',
+
   },
   placarContext: {
     height: '90%',

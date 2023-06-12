@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     alignItems: 'center',
     width: '100%',
-
   },
   IconShirtColor: {
     flexDirection: 'row',

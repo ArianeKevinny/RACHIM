@@ -12,8 +12,8 @@ type props = {
 
 function PartidaStats(props: props): JSX.Element {
 
-  const [time1, setTime1] = useState({nome: 'Meu Time 1dfsdfsdfsdfsdfsdffsdfsd', cor: 'red'}); //Receber informações dos times
-  const [time2, setTime2] = useState({nome: 'Meu Time 1', cor: '#00A3FF'}); //Receber informações dos times
+  const [time1, setTime1] = useState({nome: 'Meu Time 1', cor: 'red'}); //Receber informações dos times
+  const [time2, setTime2] = useState({nome: 'Meu Time 2', cor: '#00A3FF'}); //Receber informações dos times
   const [time1Gols, setTime1Gols] = useState(0);
   const [time2Gols, setTime2Gols] = useState(0);
   
@@ -44,6 +44,14 @@ function PartidaStats(props: props): JSX.Element {
     }
   };
 
+  const handleTime1InfoChange = (novaCor, novoNome) => {
+    setTime1({nome: novoNome, cor: novaCor})
+  }
+
+  const handleTime2InfoChange = (novaCor, novoNome) => {
+    setTime2({nome: novoNome, cor: novaCor})
+  }
+
   return (
     <View style={styles.partidaStatsContext}>
       <View style={styles.animationContext}>
@@ -56,6 +64,7 @@ function PartidaStats(props: props): JSX.Element {
             cor={time1.cor}
             onGolsChange={handleGolTime1}
             onGolContra={handleGolTime2}
+            onInfoChange={handleTime1InfoChange}
           />
         </View>
 
@@ -69,6 +78,7 @@ function PartidaStats(props: props): JSX.Element {
             cor={time2.cor}
             onGolsChange={handleGolTime2}
             onGolContra={handleGolTime1}
+            onInfoChange={handleTime2InfoChange}
             corTimeAntes
           />
         </View>
