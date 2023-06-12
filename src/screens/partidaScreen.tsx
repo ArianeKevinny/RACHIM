@@ -28,7 +28,7 @@ export function PartidaGen({route}): JSX.Element {
     timePrincipal: Time2.slice(0, TeamSize),
     timeReserva: Time2.slice(TeamSize)
   }
-
+  
   //A partir daqui, até...
   const [acrescimosMin, setAcrescimosMin] = useState(0);
   const [acrescimosSec, setAcrescimosSec] = useState(0);
