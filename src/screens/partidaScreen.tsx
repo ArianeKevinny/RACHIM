@@ -53,12 +53,12 @@ export function PartidaGen({route}): JSX.Element {
   }, [shouldStartTimer]);
 
   useEffect(() => {
-    if (timerMinutos == timerLimit) {
+    if (timerMinutos === timerLimit) {
       setIsAcrescimos(true);
       clearInterval(customInterval);
       startAcrescimos();
     }
-  }, [timerSegundos]);
+  }, [timerMinutos]);
 
   const handleStartTimer = () => {
     if (isFimDeJogo) {
@@ -107,7 +107,9 @@ export function PartidaGen({route}): JSX.Element {
   const changeTimer = () => {
     setTimerSegundos(prevState => {
       if (prevState + 1 == 60) {
-        setTimerMinutos(timerMinutos + 1);
+        setTimerMinutos(prevMin => {
+          return prevMin + 1;
+        });
         return 0;
       }
       return prevState + 1;
