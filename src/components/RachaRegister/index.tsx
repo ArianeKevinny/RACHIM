@@ -16,7 +16,7 @@ function RachaRegister(): JSX.Element {
   const [nomeDoRacha, setNomeDoRacha] = useState("");
   const [date, setDate] = useState(new Date());
   const [local, setLocal] = useState("");
-  const [jogadores, setJogadores] = useState("");
+  const [jogadores, setJogadores] = useState();
   const [loading, setLoading] = useState(false);
 
   const [openDateModal, setOpenDateModal] = useState(false);
@@ -43,16 +43,21 @@ function RachaRegister(): JSX.Element {
     firestore()
       .collection("Rachas")
       .add({
-        emailAdm: { email },
-        datahora: { date },
-        local: { local },
-        jogadoresmax: { jogadores },
+        emailAdm: email,
+        nome: nomeDoRacha, 
+        datahora: date,
+        local: local,
+        jogadoresmax: jogadores,
       })
       .then(() => {
+        setNomeDoRacha("");
+        setLocal("");
+        setJogadores("");
         Alert.alert("Racha adcionado!");
       })
       .catch((error) => {
         console.log(error);
+        Alert.alert("Problema em adicionar o racha, tente novamente!");
       });
     setLoading(false);
   }

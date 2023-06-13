@@ -66,7 +66,7 @@ export default function RachaCard({ id, email, date, local, jogadores}){
     .collection('Fila')
     .add({
         id: {id}
-        emailIn: {userEmail},
+        email: {userEmail},
     })
     .then(() => {
         Alert.alert('Entrou na fila do racha!');

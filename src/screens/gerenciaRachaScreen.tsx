@@ -228,6 +228,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     flex: 1,
     backgroundColor: 'white',
+    color: 'black'
   },
   inputLabel: {
     fontSize: 16,
@@ -239,6 +240,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: "center",
     alignItems: "center",
+    
   },
   listView: {
     flexGrow: 1,
@@ -271,6 +273,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 10,
     height: 45,
+    color: 'black',
   },
   line: {height: 1, width: '90%', backgroundColor: 'green', marginVertical: 10},
 });

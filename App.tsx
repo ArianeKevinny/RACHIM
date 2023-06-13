@@ -6,6 +6,7 @@ import 'react-native-gesture-handler';
 import AuthRoutes from './src/routes'
 import MyTabs from './src/routes/myTabs'
 import MyDrawer from './src/routes/drawer';
+import PartidaRoot from './src/routes/partidaRoot';
 
 
 function App(): JSX.Element {
@@ -36,8 +37,9 @@ function App(): JSX.Element {
 
   return (
     <NavigationContainer>
-      <MyTabs />
+      <PartidaRoot />
     </NavigationContainer>
+    
   );
 }
 
