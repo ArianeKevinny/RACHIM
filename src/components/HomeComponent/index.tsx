@@ -74,7 +74,7 @@ function HomeComponent({ navigation }: any): JSX.Element {
         containerColor="white"
         size={30}
         onPress={() => {
-          navigation.navigate('Registar Racha');
+          handleSignOut();
         }}
         style={styles.drawerIcon}
       />
@@ -88,7 +88,7 @@ function HomeComponent({ navigation }: any): JSX.Element {
 
       <IconButton
         onPress={() => {
-          handleSignOut();
+          navigation.navigate('Registar Racha');
         }}
         icon={"plus"}
         size={30}
